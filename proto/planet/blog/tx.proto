@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package planet.blog;
+
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "planet/x/blog/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc SendIbcPost (MsgSendIbcPost) returns (MsgSendIbcPostResponse);
+  rpc MintCoins   (MsgMintCoins  ) returns (MsgMintCoinsResponse  );
+}
+message MsgSendIbcPost {
+  string title            = 5;
+  string content          = 6;
+  string creator          = 1;
+  string port             = 2;
+  string channelID        = 3;
+  uint64 timeoutTimestamp = 4;
+}
+
+message MsgSendIbcPostResponse {}
+
+message MsgMintCoins {
+  string                   creator = 1;
+  cosmos.base.v1beta1.Coin amt     = 2 [(gogoproto.nullable) = false];
+}
+
+message MsgMintCoinsResponse {}
+
